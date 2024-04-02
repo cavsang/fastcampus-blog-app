@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "src", //baseurl추가.
+    "baseUrl": "src", //Baseurl 추가.
     "target": "es5",
     "lib": [
       "dom",
@@ -19,12 +19,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "react", //여기도 수정. react-jsx -> react변경 
   },
   "include": [
     "src"
   ],
-  "paths": { //별칭을 줌.  아니면 소스에서  상대경로로 해야하니까 그걸보완하기위해.
+  "paths": { //별칭을 줌.  ex)소스내에서 ../../components/test.tsx -> components/test.tsx
     "pages/*": ["pages/*"],
     "components/*": ["components/*"]
   }
