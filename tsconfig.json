@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "src", //baseurl추가.
     "target": "es5",
     "lib": [
       "dom",
@@ -22,5 +23,9 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "paths": { //별칭을 줌.  아니면 소스에서  상대경로로 해야하니까 그걸보완하기위해.
+    "pages/*": ["pages/*"],
+    "components/*": ["components/*"]
+  }
 }
