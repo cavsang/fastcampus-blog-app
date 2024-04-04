@@ -33,7 +33,7 @@ code {
 
 
 .post__list{
-  min-height: 80vh; /*view port Í∏∞Ï???úºÎ°? 90?îÑ */
+  min-height: 80vh; /*view port Í∏∞ÔøΩ???ÔøΩÔøΩÔøΩ? 90?ÔøΩÔøΩ */
   padding: 20px;
   text-align: center;
   max-width: 680px;
@@ -91,12 +91,26 @@ code {
 }
 
 
-.post__edit:focus, .post__edit:hover{
+.post__edit a, .post__delete a{
+  text-decoration: none;
+  color: gray; 
+  cursor: pointer;
+}
+
+.post__edit:focus, 
+.post__edit:hover,
+.post__edit a:focus, 
+.post__edit a:hover{
   color: black;
 }
-.post__delete:focus, .post__delete:hover{
+.post__delete:focus, 
+.post__delete:hover,
+.post__delete a:focus, 
+.post__delete a:hover{
   color: black;
 }
+
+
 
 
 
@@ -106,7 +120,7 @@ code {
 
 /* Post Detail Start*/
 .post__detail{
-  min-height: 80vh; /*view port Í∏∞Ï???úºÎ°? 90?îÑ */
+  min-height: 80vh; /*view port Í∏∞ÔøΩ???ÔøΩÔøΩÔøΩ? 90?ÔøΩÔøΩ */
   padding: 20px;
   text-align: center;
   max-width: 680px;
@@ -250,17 +264,17 @@ footer a:focus, footer a:hover{
   margin-top: 36px;
 }
 
-ul.carousel__slides{
+ul.carousel__slides {
   display: block;
   position: relative;
   height: 400px;
-  margin: 0;
+  margin: 0px;
   overflow: hidden;
   list-style: none;
 }
 
+/** ÏÇ¨Ïö©ÏûêÍ∞Ä textÎ•º ÏÑ†ÌÉùÌï†ÏàòÏóÜÎèÑÎ°ù Ï†úÏñ¥. **/
 .carousel__slides * {
-  user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -282,6 +296,7 @@ ul.carousel__slides input{
   width: 100%;
   height: 100%;
   top: 0;
+  left : 0;
   opacity: 0;
   transition: all 0.7s ease-in-out;
 }
@@ -293,8 +308,8 @@ ul.carousel__slides input{
 }
 
 .carousel__controls{
-  display: none;
-  position: absolute;
+  /* display: none; */
+  position: absolute; 
   top: 0;
   left: 0;
   right: 0;
@@ -307,7 +322,7 @@ ul.carousel__slides input{
 .carousel__controls label{
   display: none;
   position: absolute;
-  padding: 0 20px;
+  padding: 0 50px;
   opacity: 0;
   transition: opacity 0.2s;
   cursor: pointer;
@@ -371,4 +386,65 @@ input:checked + .carousel__slide-container .nav label {
 }
 
 /* Carousel End */
+
+
+/* Form start */
+.form{
+  margin: 0 auto;;
+  max-width: 680px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.form .form__block{
+  margin-top: 20px;
+  width: 100%;
+}
+
+.form label{
+  display: block;
+  font-weight: 500;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.form input{
+  height: 20px;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 0.3rem;
+  border: 1px solid lightgray;
+  width: 96%;
+  max-width: 680px;
+}
+
+.form textArea{
+  min-height: 400px; 
+  padding: 10px 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+  border: 1px solid lightgray;
+  width: 96%;
+  max-width: 680px;
+}
+
+.form .form__btn-submit{
+  width: 100%;
+  height: 48px;
+  padding: 10px 10px;
+  float: right;
+  margin: 0 auto;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: lightblue;
+  color: white;
+}
+
+.form .form__btn-submit:hover,
+.form .form__btn-submit:focus{
+  background-color: lightskyblue;
+}
+
+/* Form end */
 

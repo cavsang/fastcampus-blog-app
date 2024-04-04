@@ -1,5 +1,12 @@
 import React from "react";
+import PostForm from "components/PostForm";
+import Header from "components/Header";
 
 export default function Edit(){ 
-    return <h1>Edit New Page</h1>;
+    return (
+        <>
+            <Header />
+            <PostForm />
+        </>
+    );
 }
