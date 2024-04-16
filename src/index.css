@@ -248,6 +248,8 @@ footer a:focus, footer a:hover{
 .profile__logout{
   color: gray;
   font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .profile__logout:hover, .profile__logout:focus{
@@ -447,4 +449,54 @@ input:checked + .carousel__slide-container .nav label {
 }
 
 /* Form end */
+
+
+
+/* Login form start */
+.form--lg{
+  min-height: 70vh;
+  margin-top:10vh;
+}
+
+.form__title{
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.form__link{
+  margin-left: 10px;
+  text-decoration: none;
+  color: gray;
+}
+
+.form__link:hover,.form__link:focus{
+  color: black;
+}
+
+.form__error{
+  color: red;
+}
+
+/* Login form end */
+
+
+
+/* Loader start*/
+.loader{
+  width: 48px;
+  height: 48px;
+  border: 5px solid blue;
+  border-radius: 50%;
+  z-index: 9999;
+  animation: rotation 1s linear infinite;
+
+  /* 정가운데 맞추기 */
+  position: absolute;
+  left:0;
+  right:0;
+  top:0;
+  bottom: 0;
+  margin : auto;
+}
+/* Loader End*/
 

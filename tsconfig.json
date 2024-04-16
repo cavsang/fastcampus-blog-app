@@ -26,6 +26,7 @@
   ],
   "paths": { //별칭을 줌.  ex)소스내에서 ../../components/test.tsx -> components/test.tsx
     "pages/*": ["pages/*"],
-    "components/*": ["components/*"]
+    "components/*": ["components/*"],
+    "firebaseApp/*": ["firebaseApp/*"]
   }
 }
