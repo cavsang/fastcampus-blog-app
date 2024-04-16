@@ -19,16 +19,6 @@ function App() {
   //따라서 아래처럼 만해놓으면.. 초기에만값을 체크하니까 확인할방법이 없다. 이때 실시간으로 체크하는게 onAuthStateChanged 이다.
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!auth?.currentUser);
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if(user){
-        setIsAuthenticated(true);
-      }else{
-        setIsAuthenticated(false);
-      }
-      setInit(true);
-    })
-  },[auth]);
   return (
     <>
       <ToastContainer />

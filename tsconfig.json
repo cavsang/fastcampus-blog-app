@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "src", //Baseurl ì¶”ê°€.
+    "baseUrl": "src", //Baseurl ì¶”ê??.
     "target": "es5",
     "lib": [
       "dom",
@@ -19,14 +19,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react", //ì—¬ê¸°ë„ ìˆ˜ì •. react-jsx -> reactë³€ê²½ 
+    "jsx": "react", //?—¬ê¸°ë„ ?ˆ˜? •. react-jsx -> reactë³?ê²? 
   },
   "include": [
     "src"
   ],
-  "paths": { //ë³„ì¹­ì„ ì¤Œ.  ex)ì†ŒìŠ¤ë‚´ì—ì„œ ../../components/test.tsx -> components/test.tsx
+  "paths": { //ë³„ì¹­?„ ì¤?.  ex)?†Œ?Š¤?‚´?—?„œ ../../components/test.tsx -> components/test.tsx
     "pages/*": ["pages/*"],
     "components/*": ["components/*"],
-    "firebaseApp/*": ["firebaseApp/*"]
+    "firebaseApp/*": ["firebaseApp/*"],
+    "context/*": ["context/*"],
   }
 }
