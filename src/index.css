@@ -97,6 +97,15 @@ code {
   cursor: pointer;
 }
 
+.post__no-post{
+  padding: 24px;
+  text-align: center;
+  color: gray;
+  border: 1px solid lightgray;
+  border-radius: 20px;
+
+}
+
 .post__edit:focus, 
 .post__edit:hover,
 .post__edit a:focus, 
