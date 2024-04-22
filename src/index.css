@@ -157,6 +157,11 @@ code {
 .post__detail .post__text{
   padding: 20px 0px;
 }
+
+.post__text--pre-wrap{
+  white-space: pre-wrap;
+}
+
 /* Post Detail End */
 
 

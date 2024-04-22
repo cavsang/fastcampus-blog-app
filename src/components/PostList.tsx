@@ -8,7 +8,7 @@ interface PostListProps{
     hasNavigation?: boolean;
 }
 
-interface PostProps{
+export interface PostProps{
     id : string,
     title : string,
     summary: string,
@@ -67,7 +67,7 @@ export default function PostList({hasNavigation = true}: PostListProps){
                         </div>
                         <div className="post__title">게시글 {index}</div>
                         <div className="post__text">
-                            {e?.content}
+                            {e?.summary}
                         </div>
                     </Link> 
                         {e?.email === user?.email &&

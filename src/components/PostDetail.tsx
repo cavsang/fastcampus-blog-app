@@ -1,27 +1,55 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { getDoc, doc } from "firebase/firestore";
+import {PostProps} from "components/PostList";
+import { db } from "firebaseApp";
+import Loader from "./Loader";
 
 export default function PostDetail(){
+
+    const params = useParams();
+    const [posts, setPosts] = useState<PostProps | null>(null);
+
+    const getDocs = async (iid:string) => {
+        if(iid){
+            const docRef = doc(db, "posts",iid);
+            const document = await getDoc(docRef);
+
+            setPosts({...(document.data() as PostProps), id:document?.id});
+        }
+    }
+
+    useEffect(() => {
+        if(params?.id)
+            getDocs(params?.id);
+    },[params?.id]);
+
     return (
     <>
         <div className="post__detail">
+            {posts ? (
             <div className="post__box">
                 <div className="post__title">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    {posts?.title}
                 </div>
                 <div className="post__profile-box">
                     <div className="post__profile"></div>
-                    <div className="post__author-name">fastcampus</div>
-                    <div className="post__date">2024.03.29</div>
+                    <div className="post__author-name">{posts?.email}</div>
+                    <div className="post__date">{posts?.createAt}</div>
                     </div>
-                    <div className="post__utils-box">
-                        <div className="post__delete">삭제</div>
-                        <div className="post__edit"><Link to={`/posts/edit/1`}>수정</Link></div>
-                    </div>
-                    <div className="post__text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque iaculis cursus nisi interdum condimentum. Integer pretium quam vestibulum sapien malesuada convallis. Aliquam nec sapien sed lorem ornare semper nec nec risus. Quisque nunc leo, sodales at mattis a, pretium id purus. Phasellus fermentum condimentum faucibus. Nulla non neque non lacus volutpat tincidunt. Etiam lacinia enim a purus efficitur, non congue mauris congue. Nunc cursus efficitur accumsan. Cras ullamcorper felis at ligula finibus feugiat. Cras in metus malesuada, luctus enim eu, placerat justo. Sed sed turpis sed sem elementum interdum. Fusce non pellentesque nunc. Vivamus tincidunt, nibh ut pharetra semper, nibh dolor mollis odio, eget scelerisque odio mauris eget magna. Nunc sit amet bibendum enim.
+                    {params?.id === posts?.id && (
+                        <div className="post__utils-box">
+                            <div className="post__delete">삭제</div>
+                            <div className="post__edit"><Link to={`/posts/edit/params?.id`}>수정</Link></div>
+                        </div>
+                    )}
+                    
+                    <div className="post__text post__text--pre-wrap">
+                        {posts?.content}
                     </div>
                 </div>
+            ) : <Loader />}
+            
         </div>
     </>
     );
