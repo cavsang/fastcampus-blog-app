@@ -7,9 +7,16 @@ import {ToastContainer} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from 'components/Loader';
 import AuthContext from 'context/AuthContext';
+import { ThemeContext } from 'context/ThemeContext';
 
 
 function App() { 
+
+  //theme
+  const context = useContext(ThemeContext);
+
+
+
   const auth = getAuth(app)
 
   //auth를 체크하기전에 loading을 띄워주는 용도.
@@ -37,10 +44,10 @@ function App() {
   },[auth]);
 
   return (
-    <>
+    <div className={context?.theme === "light" ?"light":"dark" }>
       <ToastContainer />
       {init ? <Router isAuthenticated={isAuthenticated}/> :<Loader />}
-    </>
+    </div>
   );
 }
 
