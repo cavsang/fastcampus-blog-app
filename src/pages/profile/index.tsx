@@ -9,7 +9,7 @@ export default function Profile(){
         <>
             <Header />
             <ProfileComp />
-            <PostList hasNavigation={false}/>
+            <PostList hasNavigation={false} defaultTab="my"/>
             <Footer />
         </>
     );

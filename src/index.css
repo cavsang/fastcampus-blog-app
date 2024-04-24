@@ -91,7 +91,7 @@ code {
 }
 
 
-.post__edit a, .post__delete a{
+.post__edit a, .post__delete{
   text-decoration: none;
   color: gray; 
   cursor: pointer;
@@ -404,7 +404,7 @@ input:checked + .carousel__slide-container .nav label {
 /* Carousel End */
 
 
-/* Form start */
+/* Post form start */
 .form{
   margin: 0 auto;;
   max-width: 680px;
@@ -462,7 +462,16 @@ input:checked + .carousel__slide-container .nav label {
   background-color: lightskyblue;
 }
 
-/* Form end */
+.form select{
+  border: 1px solid lightgray;
+  max-width: 680px;
+  height:30px;
+  padding: 0px 20px;
+  border-radius: 0.4rem;
+
+}
+
+/* Post form end */
 
 
 

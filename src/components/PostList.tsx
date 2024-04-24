@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, query, orderBy, getDoc, where } from "firebase/firestore";
 import { db } from "firebaseApp";
 import AuthContext from "context/AuthContext";
 
+/* interface, type을 걍 이곳에 모아놈. */
+
 interface PostListProps{
     hasNavigation?: boolean;
+    defaultTab?: TabType
 }
 
 export interface PostProps{
@@ -14,22 +17,48 @@ export interface PostProps{
     summary: string,
     content: string,
     createAt: string,
-    email: string
+    email: string,
+    updatedAt : string,
+    uid: string,
+    category? : CategoryType
 }
 
-type TabType = "all"|"my";
+type TabType = "all"|"my" | CategoryType;
 
-export default function PostList({hasNavigation = true}: PostListProps){ 
+export type CategoryType = "Frontend" | "Backend" | "Web" | "Native";
+export const CATEGORIES : CategoryType[] = ["Frontend","Backend","Web","Native"];
 
-    const [activeTab, setActiveTab] = useState<TabType>("all");//기본값을 all로.
+/* interface, type을 걍 이곳에 모아놈. */
+
+
+
+
+export default function PostList({hasNavigation = true, defaultTab="all"}: PostListProps){ 
+
+    const [activeTab, setActiveTab] = useState<TabType>(defaultTab);//기본값을 all로.
 
     const [posts, setPosts] = useState<PostProps[]>([]);
 
     const {user} = useContext(AuthContext);
 
     const getPosts = async () => {
-        const datas = await getDocs(collection(db, "posts"));
+        //const datas = await getDocs(collection(db, "posts")); 
+        setPosts([]);//초기화.
 
+        const postsRef = collection(db, 'posts');
+        let postsQuery;
+        if(activeTab === "my"){
+            postsQuery = query(postsRef, where("uid","==",user?.uid), orderBy("createAt", "desc"));
+        }else if(activeTab === "Frontend" ||
+                 activeTab === "Backend"  ||
+                 activeTab === "Web" ||
+                 activeTab === "Native"){
+            postsQuery = query(postsRef,where("category","==", activeTab));
+        }else{
+            postsQuery = query(postsRef, orderBy("createAt", "desc"));
+        }
+        const datas = await getDocs(postsQuery);
+    
         datas?.forEach((doc) => {
             const dataObj = {...doc.data(), id: doc.id}; //collection의 컬럼이 아니라..id가 내부적으로 가지고있구나.
             //setPosts(prev => [...prev, dataObj as PostProps]);
@@ -42,7 +71,7 @@ export default function PostList({hasNavigation = true}: PostListProps){
 
     useEffect(() => {
         getPosts();
-    },[]); //[]가 없으면 계속 불러온다. 의존성배열..
+    },[activeTab]); //[]가 없으면 계속 불러온다. 의존성배열..
 
     return (
         <>
@@ -54,6 +83,10 @@ export default function PostList({hasNavigation = true}: PostListProps){
                 <div role="presentaion"
                     onClick={() => {setActiveTab("my")}} 
                 className={activeTab==="my"?"post__navigation--active":""}>나의 글  </div>
+                {CATEGORIES.map( c  => (
+                    <div role="presentaion" onClick={() => {setActiveTab(c)}} 
+                        className={activeTab === c ?"post__navigation--active":""}>{c} </div>
+                ))}
             </div>
             )} 
             <div className="post__list">
@@ -65,7 +98,7 @@ export default function PostList({hasNavigation = true}: PostListProps){
             <div className="post__author-name">{e?.email}</div>
             <div className="post__date">{e?.createAt}</div>
                         </div>
-                        <div className="post__title">게시글 {index}</div>
+                        <div className="post__title">{e?.title}</div>
                         <div className="post__text">
                             {e?.summary}
                         </div>
