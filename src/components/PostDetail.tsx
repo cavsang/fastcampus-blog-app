@@ -5,6 +5,7 @@ import {PostProps} from "components/PostList";
 import { db } from "firebaseApp";
 import Loader from "./Loader";
 import { toast } from "react-toastify";
+import Comments from "./Comments";
 
 export default function PostDetail(){
 
@@ -39,27 +40,30 @@ export default function PostDetail(){
     <>
         <div className="post__detail">
             {posts ? (
-            <div className="post__box">
-                <div className="post__title">
-                    {posts?.title}
-                </div>
-                <div className="post__profile-box">
-                    <div className="post__profile"></div>
-                    <div className="post__author-name">{posts?.email}</div>
-                    <div className="post__date">{posts?.createAt}</div>
-                </div>
-                {params?.id === posts?.id && (
-                    <div className="post__utils-box">
-                        <div className="post__delete" role="role" onClick={() => {onDelete(params?.id as string)}}>삭제</div>
-                        <div className="post__edit"><Link to={`/posts/edit/${params?.id}`}>수정</Link></div>
+            <>
+                <div className="post__box">
+                    <div className="post__title">
+                        {posts?.title}
                     </div>
-                )}
-                <div className="post__category">{posts?.category}</div>
-                
-                <div className="post__text post__text--pre-wrap">
-                    {posts?.content}
+                    <div className="post__profile-box">
+                        <div className="post__profile"></div>
+                        <div className="post__author-name">{posts?.email}</div>
+                        <div className="post__date">{posts?.createAt}</div>
+                    </div>
+                    {params?.id === posts?.id && (
+                        <div className="post__utils-box">
+                            <div className="post__delete" role="role" onClick={() => {onDelete(params?.id as string)}}>삭제</div>
+                            <div className="post__edit"><Link to={`/posts/edit/${params?.id}`}>수정</Link></div>
+                        </div>
+                    )}
+                    <div className="post__category">{posts?.category}</div>
+                    
+                    <div className="post__text post__text--pre-wrap">
+                        {posts?.content}
+                    </div>
                 </div>
-            </div>
+                <Comments post={posts}/>
+            </>
             ) : <Loader />}
             
         </div>
