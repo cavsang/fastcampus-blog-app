@@ -11,7 +11,7 @@ interface PostListProps{
     defaultTab?: TabType
 }
 
-interface commentsProps{
+export interface CommentsInfo{
     uid : string,
     email : string,
     createAt: string,
@@ -28,7 +28,7 @@ export interface PostProps{
     updatedAt : string,
     uid: string,
     category? : CategoryType,
-    comments? : commentsProps[]
+    comments? : CommentsInfo[]
 }
 
 export interface CommentsProps{

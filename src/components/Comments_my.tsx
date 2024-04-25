@@ -55,7 +55,7 @@ export default function Comments({postsId}:any){
         console.log(datas.size);
         datas.forEach((data) => {
             const newComments = {...data.data(), id: data.id};
-            setComments(prev => [...prev, newComments as CommentsProps]);
+            //setComments(prev => [...prev, newComments as CommentsProps]);
         });
 
 
@@ -76,7 +76,7 @@ export default function Comments({postsId}:any){
                     <input type="submit" value="입력" className="form__btn-submit"/>
                 </div>
             </form>
-            <div className="comments__list">
+            {/* <div className="comments__list">
                 {comments?.map(m => {
                     return (
                         <div key={m.id} className="comment__box">
@@ -89,7 +89,7 @@ export default function Comments({postsId}:any){
                         </div>
                     )
                 })}
-            </div>
+            </div> */}
         </div>
     )
 } 
