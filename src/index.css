@@ -650,6 +650,7 @@ input:checked + .carousel__slide-container .nav label {
   font-size: 15px;
   text-align: center;
   background-color: aliceblue;
+  cursor: pointer;
 }
 
 .comment__text{

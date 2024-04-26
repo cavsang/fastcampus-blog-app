@@ -32,7 +32,8 @@ export interface PostProps{
 }
 
 export interface CommentsProps{
-    post: PostProps
+    post: PostProps,
+    getDocs : (id:string) => Promise<void>
 }
 
 type TabType = "all"|"my" | CategoryType;

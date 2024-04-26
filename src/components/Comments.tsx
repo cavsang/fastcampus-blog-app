@@ -1,25 +1,19 @@
 import React, { useState, ReactElement, ChangeEvent, useContext, useEffect } from "react";
 import AuthContext from "context/AuthContext";
-import { addDoc, collection, query, where, getDocs, orderBy, getDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, getDoc, arrayRemove } from "firebase/firestore";
 import { db } from "firebaseApp";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { CommentsProps, CommentsInfo } from "./PostList";
 
-export default function Comments({post}: CommentsProps){
+export default function Comments({post, getDocs}: CommentsProps){
 
     const {user} = useContext(AuthContext);
-    const navigate = useNavigate();
-
     const [comment, setComment] = useState<string>("");
-    const [comments, setComments] = useState<CommentsInfo[]>([]);
-    const [pushBtn, setPushbtn] = useState<boolean>(false);
 
     const onChnage = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
         const {target : { value}} = e;
         setComment(value);
     }
-
 
     const postsRef = doc(db, 'posts',post?.id);
     //let postsQuery = query(postsRef,where("uid","==", post?.uid));
@@ -45,29 +39,34 @@ export default function Comments({post}: CommentsProps){
                     comments: arrayUnion(commentData)
                 });
                 toast.success('댓글이 등록되었습니다.');
-                navigate(`/posts/${post?.id}`);
-                setPushbtn(prev => !prev);
+                //navigate(`/posts/${post?.id}`);
+                //setPushbtn(prev => !prev);
+
+                await getDocs(post?.id);
             } catch (error:any) {
                 toast.error(error?.code);
             }
             
         }
-    }
+    };
 
-    
-    
-    
-    const getComments = async () => {
-        setComments([]);
-        const datas = await getDoc(postsRef);
-        const document = datas.data();
-        setComments(document?.comments as CommentsInfo[]);
-        
-    }
+    const onDelete = async (document:CommentsInfo) => {
+        if(document){
+            if(window.confirm("댓글을 삭제하시겠습니까??")){
+                
+                try {
+                    await updateDoc(postsRef,{
+                        comments: arrayRemove(document)
+                    });
+                    toast.success('댓글이 삭제 되었습니다.');
+                    await getDocs(post?.id);
+                } catch (error:any) {
+                    toast.error(error?.code);
+                }
+            }
+        }
+    };
 
-    useEffect(() => {
-        getComments();
-    },[pushBtn]);
 
     return (
         <div className="comments">
@@ -81,13 +80,14 @@ export default function Comments({post}: CommentsProps){
                 </div>
             </form>
             <div className="comments__list">
-                {comments?.map((m, i) => {
+                {/* slice하는 이유는 새로운 배열return 하기위해. */}
+                {post?.comments?.slice(0).reverse().map((m, i) => {
                     return (
                         <div key={m?.uid + i} className="comment__box">
                             <div className="comment__profile-box">
                                 <div className="comment__email">{m?.email}</div>
                                 <div className="comment__createAt">{m?.createAt}</div>
-                                <div className="comment__delete">삭제</div>
+                                {user?.uid === m?.uid && <div className="comment__delete" onClick={() => onDelete(m)}>삭제</div>}
                             </div>
                             <div className="comment__text">{m?.contents}</div>
                         </div>
